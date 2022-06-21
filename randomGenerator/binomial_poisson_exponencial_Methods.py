@@ -1,8 +1,8 @@
 from math import factorial, e, log
 from random import random
 import numpy as np
-
-
+from scipy.stats import chisquare
+import pearson_test as pt
 # def poisson(lmbda, n):
 #     datos = np.zeros(n)
 #     datos[0] = (factorial(n) / (factorial(0) * factorial(n))) * 1 * (1-p)**(n)
@@ -42,17 +42,22 @@ def poisson2numbers(lmbda, U):
     :return: The number of events that occur in a given time interval.
     """
 
-    # p = e**(-lambda_lb)
-    # F = p
-    # i = 0
+    p = e**(-lmbda)
+    F = p
+    i = 0
 
-    # while U < F:
-    #     p = (lambda_lb*p)/(i+1)
-    #     F += p
-    #     i += 1
+    while U > F:
+        p = (lmbda*p)/(i+1)
+        F += p
+        i += 1
 
-    x = -(1/lmbda)*log(U)
-    return x
+    return i
+
+
+def EXPONENTIAL(lmbda, U):
+
+    # x = -(1/lmbda)*log(U)
+    return -(1/lmbda)*log(U)
 
 
 def binomial2numbers(n, p, U):
@@ -78,19 +83,28 @@ def binomial2numbers(n, p, U):
     return i
 
 
-def pearson_test():
-    pass
+# def chi_square_test(observed_values, calculated_values):
+#     chi_square = 0
+#     for i in range(len(observed_values)):
+#         chi_square_value = (observed_values[i] - calculated_values[i])**2/calculated_values[i]
+#         chi_square += chi_square_value
+#     return chi_square
 
 
 n, p = 10, .9
-lmbda = 4
-# Ub = binomial(n, p)
-# Up = poisson(lmbda, n)
-# print(Up)
-# nums = []
-for u in range(10):
-    print(random(), " ", binomial2numbers(n, p, random()))
-    print(random(), " ", poisson2numbers(0.01, random()))
+lmbda = 20
 
-# for u in Up:
-#
+bins = []
+pois = []
+for u in range(10):
+    bin = binomial2numbers(n, p, random())
+    bins.append(bin)
+    poi = poisson2numbers(lmbda, random())
+    pois.append(poi)
+
+print(pois)
+# print(pt.generateObservedExpectedValues(pois, pt.EXPONENTIAL, [lmbda]))
+
+# print(chi_square_test(poi_observed_values, pois))
+# print(chisquare(pois, f_exp=poi_observed_values))
+# print(chi_square_test(bin_observed_values, bins))
