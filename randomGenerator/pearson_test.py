@@ -3,6 +3,10 @@ from math import log
 import scipy.stats as stat2
 
 
+def normal(paremetrer=[], bins=[]):
+    return stat2.norm.cdf(bins)
+
+
 def EXPONENTIAL(lmbda, bins):
     return 1 - np.exp(-lmbda[0]*bins)
 
