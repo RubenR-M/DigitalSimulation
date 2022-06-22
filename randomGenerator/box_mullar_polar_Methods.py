@@ -1,9 +1,7 @@
-import numpy as np
 import random as rd
 from math import log, pi, cos, sin
 from time import time
-from scipy.stats import chisquare, chi2_contingency, norm
-import matplotlib.pyplot as plt
+import pearson_test as pt
 
 
 def box_muller():
@@ -41,13 +39,13 @@ for i in range(100):
     x, y = box_muller()
     Xs.append(x)
 final = time()
-print(final-inicio)
+# print(final-inicio)
 
-# plt.hist(Xs, bins=b)
-# plt.show()
+observedValues, expectedValues, numGroups = pt.generateObservedExpectedValues(Xs, pt.normal, functionParameters=[])
+print(pt.pearsonTest(observedValues, expectedValues, numGroups))
 
 inicio = time()
 for i in range(100):
     x, y = polar()
 final = time()
-print(final-inicio)
+# print(final-inicio)

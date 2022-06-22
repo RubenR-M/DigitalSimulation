@@ -26,7 +26,7 @@ def lfsrF(end):
     return datos
 
 
-def main(epsilon):
+def runsTest(epsilon):
 
     n_ones = epsilon.count("1")
     lenEpsilon = len(epsilon)
@@ -58,7 +58,7 @@ def main(epsilon):
         return False
 
 
-if __name__ == "__main__":
+def main():
     test = "1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000"
 
     datos = np.array(lfsrF(5))
@@ -69,5 +69,9 @@ if __name__ == "__main__":
         epsilon += format(num, "b")
 
     print("\t\nEpsilon: " + epsilon)
-    result = main(epsilon)
+    result = runsTest(epsilon)
     print(f"\tThe sequence is random?\n\tRTA:{result}\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -37,6 +37,3 @@ for i in range(100):
     x, y = reject(c, f, g)
     Ys = np.concatenate([Ys, y])
     Xs.append(x)
-# print((Ys))
-# print(len(Ys))
-print(Xs)
