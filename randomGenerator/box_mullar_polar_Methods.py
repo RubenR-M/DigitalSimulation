@@ -1,3 +1,4 @@
+
 import random as rd
 from math import log, pi, cos, sin
 from time import time
@@ -42,7 +43,10 @@ final = time()
 # print(final-inicio)
 
 observedValues, expectedValues, numGroups = pt.generateObservedExpectedValues(Xs, pt.normal, functionParameters=[])
+# print(observedValues, expectedValues, numGroups)
 print(pt.pearsonTest(observedValues, expectedValues, numGroups))
+# plt.hist(Xs, bins=b)
+# plt.show()E
 
 inicio = time()
 for i in range(100):

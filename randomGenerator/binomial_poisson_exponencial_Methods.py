@@ -1,16 +1,43 @@
 from math import e, log
 from random import random
-import pearson_test as pt
+
+# def poisson(lmbda, n):
+#     datos = np.zeros(n)
+#     datos[0] = (factorial(n) / (factorial(0) * factorial(n))) * 1 * (1-p)**(n)
+
+#     for i in range(n-1):
+
+#         datos[i+1] = (lmbda/(i+1)) * datos[i]
+
+#     return datos
+
+
+# def binomial(n, p):
+#     """
+#     It calculates the probability of each possible number of successes in a binomial distribution
+
+#     :param n: number of trials
+#     :param p: probability of success
+#     :return: The probability of getting a certain number of successes in n trials.
+#     """
+
+#     datos = np.zeros(n)
+#     datos[0] = (factorial(n) / (factorial(0) * factorial(n - 0))) * 1 * (1-p)**(n-0)
+
+#     for i in range(n-1):
+#         datos[i+1] = ((n-i)/(i+1)) * (p/(1-p)) * datos[i]
+
+#     return datos
 
 
 def poisson2numbers(lmbda, U):
     """
-    > The function takes in a lambda value and a random number and returns the number of times the event
-    occurs
+    > The function `poisson2numbers` takes a parameter `lmbda` and a random number `U` and returns a
+    random number `i` that is distributed according to the Poisson distribution with parameter `lmbda`
 
     :param lmbda: the mean of the distribution
     :param U: a random number between 0 and 1
-    :return: The number of events that occur in a given time interval.
+    :return: The number of times the event occurs.
     """
 
     p = e**(-lmbda)
@@ -25,7 +52,7 @@ def poisson2numbers(lmbda, U):
     return i
 
 
-def exponential(lmbda, U):
+def EXPONENTIAL(lmbda, U):
     """
     > The function EXPONENTIAL(lmbda, U) returns a random number from the exponential distribution with
     parameter lmbda, given a random number U from the uniform distribution on (0,1)
@@ -61,19 +88,28 @@ def binomial2numbers(n, p, U):
     return i
 
 
+# def chi_square_test(observed_values, calculated_values):
+#     chi_square = 0
+#     for i in range(len(observed_values)):
+#         chi_square_value = (observed_values[i] - calculated_values[i])**2/calculated_values[i]
+#         chi_square += chi_square_value
+#     return chi_square
+
+
 n, p = 10, .9
-lmbda = 1
+lmbda = 20
 
 bins = []
 pois = []
-exps = []
 for u in range(10):
     bin = binomial2numbers(n, p, random())
     bins.append(bin)
     poi = poisson2numbers(lmbda, random())
     pois.append(poi)
-    exp = exponential(lmbda, random())
-    exps.append(exp)
 
-observedValues, expectedValues, numGroups = pt.generateObservedExpectedValues(exps, pt.EXPONENTIAL, functionParameters=[lmbda])
-print(pt.pearsonTest(observedValues, expectedValues, numGroups))
+print(pois)
+# print(pt.generateObservedExpectedValues(pois, pt.EXPONENTIAL, [lmbda]))
+
+# print(chi_square_test(poi_observed_values, pois))
+# print(chisquare(pois, f_exp=poi_observed_values))
+# print(chi_square_test(bin_observed_values, bins))
