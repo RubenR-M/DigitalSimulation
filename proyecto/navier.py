@@ -60,11 +60,10 @@ def pressure_poisson_periodic(p, dx, dy):
 
 
 # variable declarations
-nx = 41
-ny = 41
-nt = 10
-nit = 50
-c = 1
+nx = 41  # numero de puntos en x
+ny = 41  # numero de puntos en y
+nit = 50  # numero de iteraciones para la presion
+
 dx = 2 / (nx - 1)
 dy = 2 / (ny - 1)
 x = numpy.linspace(0, 41, nx)
@@ -73,10 +72,10 @@ X, Y = numpy.meshgrid(x, y)
 
 
 # physical variables
-rho = 0.5
-nu = .1
-F = 2
-dt = .01
+rho = 0.5  # density
+nu = .1  # viscosity
+F = 2  # force
+dt = .01  # time step
 
 # initial conditions
 u = numpy.zeros((ny, nx))
@@ -101,7 +100,10 @@ for i in range(500):  # stepcount < 10000:  # udiff > .001:
 
     b = build_up_b(rho, dt, dx, dy, u, v)
     p = pressure_poisson_periodic(p, dx, dy)
-    print(numpy.unique(p))
+
+    """
+      CALCULOS  DE LA ZONA INTERIOR DEL TUBO
+    """
     u[1:-1, 1:-1] = (un[1:-1, 1:-1] -
                      un[1:-1, 1:-1] * dt / dx *
                      (un[1:-1, 1:-1] - un[1:-1, 0:-2]) -
@@ -127,6 +129,9 @@ for i in range(500):  # stepcount < 10000:  # udiff > .001:
                            dt / dy**2 *
                            (vn[2:, 1:-1] - 2 * vn[1:-1, 1:-1] + vn[0:-2, 1:-1])))
 
+    """
+    CALCULO DE LOS BORDER CONDITIONS
+    """
     # Periodic BC u @ x = 2
     u[1:-1, -1] = (un[1:-1, -1] - un[1:-1, -1] * dt / dx *
                    (un[1:-1, -1] - un[1:-1, -2]) -

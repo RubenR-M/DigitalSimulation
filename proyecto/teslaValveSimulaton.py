@@ -6,21 +6,21 @@ import cv2
 # plot_every = 50
 
 # TESLA VALVE
-image = cv2.imread("teslaCambioSentido.png", 0)
-image = cv2.resize(image, (300, 50))
-image = image.astype(np.float32)
-
-image[image != 255] = 0
-image = image/255
-
-# CHANNEL
-# image = cv2.imread("rect.png", 0)
+# image = cv2.imread("teslaCambioSentido.png", 0)
 # image = cv2.resize(image, (300, 50))
 # image = image.astype(np.float32)
 
-# image[image == 0] = 255
 # image[image != 255] = 0
 # image = image/255
+
+# CHANNEL
+image = cv2.imread("rect.png", 0)
+image = cv2.resize(image, (300, 50))
+image = image.astype(np.float32)
+
+image[image == 0] = 255
+image[image != 255] = 0
+image = image/255
 
 # image = np.invert(image.astype(np.uint8)).astype(np.float32)
 # imagePoints = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
@@ -51,7 +51,7 @@ def distance(x1, y1, x2, y2):
 def main(cyl, der):
     Nx = 300
     Ny = 50
-    tau = 0.54  # collision timescale
+    tau = 0.62  # collision timescale
     Nt = 10000
 
     # Initialize the lattice
@@ -177,7 +177,7 @@ def main(cyl, der):
             plt.colorbar(label="Velocity Magnitude")
             X[cylinder] = 0
             Y[cylinder] = 0
-            plt.quiver(X[25::25], Y[25::25], ux[25::25], uy[25::25], cmap="bwr", scale=1)
+            # plt.quiver(X[25::25], Y[25::25], ux[25::25], uy[25::25], cmap="bwr", scale=1)
 
             plt.subplot(3, 1, 2)
             r = np.copy(rho)
